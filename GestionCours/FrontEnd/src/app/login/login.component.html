@@ -1,0 +1,43 @@
+<!-- component -->
+<div class="min-h-screen bg-color-gray-100 py-6 flex flex-col justify-center sm:py-12">
+	<div class="relative py-3 sm:max-w-xl sm:mx-auto">
+		<div
+			class="ring-1 ring-color-green-3 absolute inset-0 bg-gradient-to-r
+             from-color-green-2 to-color-orange-1 shadow-lg 
+            transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl">
+		</div>
+		<div class="relative px-4 py-10 ring-1 ring-color-orange-1 bg-color-white shadow-lg 
+        sm:rounded-3xl sm:p-20">
+			<div class="max-w-md mx-auto">
+				<div>
+					<h1 class="text-3xl font-semibold text-color-orange-1 ">Connexion</h1>
+				</div>
+				<div class="divide-y divide-color-gray-200">
+					<div class="py-8 text-base leading-6 space-y-4
+                     text-color-gray-700 sm:text-lg sm:leading-7">
+					 <form [formGroup]="connexionForm" (submit)="toLogIn()">
+						<div class="relative h-auto m-2">
+							<label for="email" class="py-6 text-sm text-color-green-3">login</label>
+							<input formControlName="login" autocomplete="off" id="email" name="email"
+                             type="text" class="rounded-lg peer placeholder-transparent 
+                             h-10 w-full border-b-2 border-color-gray-300
+                              text-color-blue-600 focus:outline-none focus:border-color-blue-600" 
+                              placeholder="login" />
+						</div>
+						<div class="relative h-auto m-2">
+							<label for="password" class="py-6 text-sm text-color-green-3">Mot de passe</label>
+							<input formControlName="password" autocomplete="off" id="password" name="password" type="password" 
+                            class="rounded-lg peer placeholder-transparent h-10 w-full border-b-2
+                             border-color-gray-300 text-color-blue-600
+                             focus:outline-none focus:border-color-blue-600" placeholder="Mot de passe" />
+						</div>
+						<div class="relative h-auto mt-6 pr-2 w-full flex justify-end">
+							<button class=" text-color-white bg-color-orange-1 rounded-md px-2 py-1">Se connecter</button>
+						</div>
+					</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

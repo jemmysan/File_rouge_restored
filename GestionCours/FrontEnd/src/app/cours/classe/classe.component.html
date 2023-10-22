@@ -1,0 +1,53 @@
+<div *ngIf="changeTolist">
+<main class="bg-color-rd-600 rounded-lg  h-[88%] shadow-sm-light shadow-color-orange-1"> 
+
+  <div>
+    <div class="shadow-sm-light shadow-color-orange-1 md:py-4 px-4 md:px-5 xl:px-8 rounded-t-lg">
+      <div class="sm:flex items-center justify-between ">
+        <div class="flex items-center justify-between  w-[30%]">
+          <a class="rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800"
+            href=" javascript:void(0)">
+            <div class="py-2 px-8 bg-indigo-100 text-indigo-700 rounded-full">
+              <p>Tout</p>
+            </div>
+          </a>
+
+       
+          
+        </div>
+      </div>
+    </div>
+    <main class=" w-[100%] h-full flex relative overflow-y-hidden">
+
+      
+    
+      <!-- Container -->
+      <div class="  h-full w-full m-4 flex flex-wrap items-start justify-start rounded-tl grid-flow-col auto-cols-max gap-4 overflow-y-scroll">
+        <!-- Container -->
+      <div *ngFor="let classe of classes?.data" class="m-4 flex flex-col bg-white shadow-md shadow-color-green-3 p-4 mb-4 rounded-lg">
+        <div class="w-full flex justify-between">
+            <p class="text-sm">Effectif</p>
+            <p class="text-sm">{{classe.effectif}}</p>
+
+        </div>
+        <h2 class="p-2 text-3xl mt-6 text-center text-color-orange-1 shadow-sm shadow-color-orange-1 rounded-lg font-bold mb-2">
+          <button (click)="idClasse(classe)">{{classe.libelle}}</button>
+        </h2>
+          
+      </div>
+      
+      </div>
+    </main>
+  </div>
+</main>
+</div>
+
+
+  <div *ngIf="!changeTolist">
+    <app-liste-etudiant (emitterClasse)="backToClasse()"></app-liste-etudiant>
+    
+  </div>
+
+  
+  <!------Modal------>
+

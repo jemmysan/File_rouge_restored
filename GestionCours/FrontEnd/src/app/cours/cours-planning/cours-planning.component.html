@@ -1,0 +1,184 @@
+
+<div *ngIf="changeComp">
+  <main class="bg-color-rd-600 rounded-lg  h-[88%] shadow-sm-light shadow-color-orange-1"> 
+
+      <div>
+        <div class="shadow-sm-light shadow-color-orange-1 md:py-4 px-4 md:px-5 xl:px-8 rounded-t-lg">
+          <div class="sm:flex items-center justify-between ">
+            <div class="flex items-center justify-between  w-[30%]">
+              <a class="rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800"
+                href=" javascript:void(0)">
+                <div class="py-2 px-8 bg-indigo-100 text-indigo-700 rounded-full">
+                  <p>Tout</p>
+                </div>
+              </a>
+
+              <div class="py-3 px-4 flex items-center text-sm font-medium leading-none
+              text-gray-600  hover:bg-color-green-3 cursor-pointer rounded-3xl">
+                <p class="px-2">Filtre</p>
+                <select aria-label="select" class="focus:text-indigo-600 focus:outline-none bg-transparent ml-1 rounded-lg">
+                  <option class="text-sm text-indigo-800">Module</option>
+                  <option class="text-sm text-indigo-800">Classe</option>
+                  <option class="text-sm text-indigo-800">Professeur</option>
+                </select>
+              </div>
+              
+            </div>
+            <div class="rounded-lg shadow-sm-light shadow-color-orange-1" >
+            <button (click)="showModal()"
+              class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600  sm:mt-0
+              inline-flex items-start justify-start px-6 py-3
+              bg-color-orange-1 hover:bg-gray-400 hover:text-gray-900
+                focus:outline-none rounded">
+              <p class="text-sm font-medium leading-none text-white">Planifier Cours <span class="text-xl">+</span></p>
+            </button>
+          </div>
+          </div>
+        </div>
+        <main class=" w-[100%] h-full flex relative overflow-y-hidden">
+
+          
+        
+          <!-- Container -->
+          <div class="  h-full w-full m-4 flex flex-wrap items-start justify-start rounded-tl grid-flow-col auto-cols-max gap-4 overflow-y-scroll">
+            <!-- Container -->
+          <div *ngFor="let item of listCours?.data"
+            class="m-4 flex flex-col bg-white shadow-md shadow-color-green-3 p-4 mb-4 rounded-lg">
+            <div class="w-full flex justify-between">
+                <p class="text-sm">{{item.prof_module_id.prof.prenom}} {{item.prof_module_id.prof.nom}} </p>
+                <p class="text-sm">{{item.quantum_horaire}}h</p>
+
+            </div>
+            <h2 class="p-2 text-3xl mt-6 text-center text-color-orange-1 shadow-sm shadow-color-orange-1 rounded-lg font-bold mb-2">
+              <span > {{item.prof_module_id.module.libelle}}</span>
+
+            </h2>
+            <div class="flex justify-between mt-4">
+                <span class="m-1 p-2 mt-2">
+                  Etat
+                </span>
+                <button (click)="sessionCours(item)" class="m-2 px-2 text-right shadow-2xl text-white rounded-lg bg-color-orange-1">
+                    sessions
+                    
+                </button>
+            </div>
+          </div>
+          
+          </div>
+        </main>
+      </div>
+
+      
+      
+      <!------Modal------>
+    
+      
+    <div class=" fixed inset-0 flex items-center justify-center z-50" 
+    *ngIf="displayModal" id="staticModal"  data-modal-backdrop="static"
+     tabindex="-6" aria-hidden="true" class="fixed top-0 left-0 right-0 
+     z-50  w-full  overflow-x-hidden overflow-y-auto md:inset-0 
+      h-full">
+     <div class=" bg-black bg-opacity-40 w-full h-full">
+      <div class="relative w-full max-w-2xl mx-auto rounded-lg shadow dark:bg-gray-700 top-[26%] ">
+        <!-- Modal content -->
+        <div class="relative bg-color-white ring-1 ring-color-green-3 rounded-lg shadow dark:bg-gray-700">
+          <!-- Modal header -->
+          <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+            <h3 class="text-xl font-semibold text-color-orange-1 dark:text-white">
+              Planifier un cours
+                </h3>
+                <button (click)="closeModal()" type="button" class="text-color-orange-1 bg-transparent hover:bg-red-600
+                 hover:text-color-white rounded-lg text-sm w-8 h-8 ml-auto inline-flex 
+                 justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                  data-modal-hide="staticModal">
+                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                  </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+          </div>
+              
+
+              
+              
+            <!-- Modal body -->
+            <form [formGroup]="planningCoursFrom" (ngSubmit)="plannifierCours()">
+              <div class="h-[50%] bg-slate-600 shadow-md rounded text-color-orange-1 ">
+                <div class="flex  w-full bg-slate-600 space-x-5 p-4">
+                <div class="w-1/2 space-y-2">
+                  <label for="">Module</label>
+                  <select formControlName="module"  (change)="moduleChanged()" placeholder="eflrffl" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-black py-3 px-4 pr-8 rounded" id="grid-state">
+                    <option value="0" selected disabled>Choisir module</option>
+                    <option [ngValue]="module.id" *ngFor="let module of coursComponents?.modules">{{module.libelle}}</option>
+                  </select>
+                </div>
+                <div class=" w-1/2 space-y-2">
+                  <label for="" >Professeur</label>
+                  <select formControlName="professeur" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-black py-3 px-4 pr-8 rounded" id="grid-state">
+                    <option value="0" disabled selected>Choisir Professeur</option>
+                    <option [ngValue]="prof.id" *ngFor="let prof of professeurs">{{prof.prenom}} {{prof.nom}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex  w-full bg-slate-600 space-x-5 p-4">
+                <div class="w-1/2 space-y-2">
+                  <label for="">Quantum horaire</label>
+                  <div class="h-12 bg-gray-50 flex border border-gray-200 rounded items-center">
+                    <button tabindex="-1" for="show_more" class="cursor-pointer outline-none focus:outline-none border-r border-gray-200 transition-all text-gray-500 hover:text-blue-600">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mx-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                      </svg>
+                    </button>
+                    <input type="number" formControlName="quantum_horaire" name="soda" id="soda" placeholder="0" class=" px-2 text-center appearance-none outline-none text-gray-800 w-full bg-transparent" value="0" />
+                    <button tabindex="-1" for="show_more" class="cursor-pointer outline-none focus:outline-none border-l border-gray-200 transition-all text-gray-500 hover:text-blue-600">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mx-2 fill-current" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class=" w-1/2 space-y-2">
+                  <label for="" >Semestre</label>
+                  <select formControlName="semestre_id" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-black py-3 px-4 pr-8 rounded" id="grid-state">
+                    <option value="0" disabled selected>Choisir semestre </option>
+                    <option [ngValue]="semestre.id" *ngFor="let semestre of coursComponents?.semestres">{{semestre.libelle}}</option>
+                  </select>
+                </div>
+                <div class=" w-1/2 space-y-2">
+                  <label for="" >Classe</label>
+                  <select formControlName="classe_id" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-black py-3 px-4 pr-8 rounded" id="grid-state">
+                    <option value="0" selected disabled>Choisir classe</option>
+                    <option [ngValue]="classe.id" *ngFor="let classe of coursComponents?.classes">{{classe.libelle}}</option>
+                  </select>
+                </div>
+                
+              </div>
+              <div class="w-full  flex bg-slate-600 flex-row justify-end space-x-5 p-4">
+                
+                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                  <button data-modal-hide="staticModal" type="submit" class="text-white bg-color-orange-1
+                   hover:bg-color-green-3  font-medium rounded-lg text-sm px-5 
+                   py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700
+                    dark:focus:ring-blue-800">Planifier</button>
+                  </div>
+                </div>
+                
+              </div>
+            <!-- Modal footer -->
+            </form>  
+        </div>
+        
+
+      </div>
+    </div>
+  </div>
+  </main>
+
+</div>
+
+<div *ngIf="!changeComp">
+  <app-session-cours (emitter)="backToCours()"></app-session-cours>
+</div>
+
+
+

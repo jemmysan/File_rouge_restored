@@ -1,0 +1,185 @@
+<main class=" rounded-lg  h-full shadow-sm-light shadow-color-orange-1"> 
+    <div >
+      <div class="shadow-sm-light shadow-color-orange-1 md:py-4 px-4 md:px-5 xl:px-8 rounded-t-lg">
+        
+        
+        <div  class="sm:flex items-center justify-between ">
+          
+          <div class="p-2 rounded-lg w-auto h-auto shadow-sm-light shadow-color-orange-1">
+            <button (click)="emitterClasse.emit(true)">
+              <span class="underline flex justify-between w-20 text-color-orange-1">
+                <svg class="w-6 h-6 text-color-orange-1 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+                </svg>Retour
+              </span>
+          </button>
+          </div>
+            <div>
+                Classe : <span>{{classe.libelle}}</span>
+            </div>
+
+            <div>
+                Effectif : <span>{{classe.effectif}}</span>
+                    <span></span>
+            </div>
+            
+            
+
+            
+            
+          
+          <div class="rounded-lg shadow-sm-light shadow-color-orange-1" >
+          <button (click)="openModal()" 
+            class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600  sm:mt-0
+            inline-flex items-start justify-start px-6 py-3
+             bg-color-orange-1 hover:bg-gray-400 hover:text-gray-900
+              focus:outline-none rounded">
+            <p class="text-sm font-medium leading-none text-white">Inscrire<span class="text-xl">+</span></p>
+          </button>
+        </div>
+        </div>
+      </div>
+      <main class=" w-[100%] h-full flex relative overflow-y-hidden">
+  
+        
+      
+        <!-- Container -->
+        <div class="  h-full w-full m-4 flex flex-wrap items-start justify-start rounded-tl grid-flow-col auto-cols-max gap-4">
+          <!-- Container -->
+          
+
+            <!-- component -->
+
+    
+    <div class=" w-full h-[450px]">
+      <div class="p-4">
+        <div class="bg-white  rounded-md">
+          <div>
+            
+            <div>
+              <div class="h-auto max-h-96">
+                <div class="flex justify-between bg-color-orange-1 rounded-md py-2 px-4 text-white font-bold text-md">
+                  <div>
+                    <th>Prenom</th>
+                  </div>
+                  <div>
+                    <th>Nom</th>
+                  </div>
+                  <div>
+                    <th>login</th>
+                  </div>
+                  
+                    
+                  
+                </div>
+                <div>
+                  <div *ngFor="let json of jsonData" class="flex justify-between border-t text-sm font-normal mt-4 space-x-4">
+                    <div class="px-2 flex">
+                      <span>{{json[0]}}</span>
+                    </div>
+                    <div>
+                      <span>{{json[1]}}</span>
+                    </div>
+                    <div class="px-2">
+                        <span>{{json[2]}}</span>
+                    </div>
+                   
+                  </div>
+                  
+                  
+                </div>
+              </div>
+
+              <div class="mt-4 flex justify-end items-end" >
+                <button (click)="inserer()" 
+                  class=" focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600  sm:mt-0
+                  inline-flex items-start justify-start px-1 py-1
+                   bg-color-orange-1 hover:bg-gray-400 hover:text-gray-900
+                    focus:outline-none rounded">
+                  <p class="text-sm font-medium leading-none text-white">Ajouter</p>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+            
+            
+         
+        
+         
+        </div>
+
+      </main>
+    </div>  
+</main>
+
+
+
+<!--------- Modal------------->
+<div class=" fixed inset-0 flex items-center justify-center z-50" 
+    *ngIf="displayModal" id="staticModal"  data-modal-backdrop="static"
+     tabindex="-6" aria-hidden="true" class="fixed top-0 left-0 right-0 
+     z-50  w-full  overflow-x-hidden overflow-y-auto md:inset-0 
+      h-full">
+     <div class=" bg-black bg-opacity-40 w-full h-full">
+      <div class="relative w-full max-w-2xl mx-auto rounded-lg shadow dark:bg-gray-700 top-[26%] ">
+        <!-- Modal content -->
+        <div class="relative bg-color-white ring-1 ring-color-green-3 rounded-lg shadow dark:bg-gray-700">
+          <!-- Modal header -->
+          <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+            <h3 class="text-xl font-semibold text-color-orange-1 dark:text-white">
+              Inscription
+                </h3>
+                <button (click)="closeModal()" type="button" class="text-color-orange-1 bg-transparent hover:bg-red-600
+                 hover:text-color-white rounded-lg text-sm w-8 h-8 ml-auto inline-flex 
+                 justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                  data-modal-hide="staticModal">
+                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                  </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+          </div>
+              
+
+              
+              
+            <!-- Modal body -->
+           
+              <div class="h-[50%] bg-slate-600 shadow-md rounded text-color-orange-1 ">
+               
+              <div class="flex  w-full bg-slate-600 space-x-5 p-4">
+                
+                    <div class=" w-1/2 space-y-2">
+                        <label for="" >Inserer fichier</label>
+                        <input (change)="selectFile($event)" type="file"  class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-black py-3 px-4 pr-8 rounded" id="grid-state">
+                    
+                  </div>
+                </div>
+                
+              </div>
+              <div class="w-full  flex bg-slate-600 flex-row justify-end space-x-5 p-4">
+                
+                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                  <button (click)="inscription()" type="submit" class="text-white bg-color-orange-1
+                   hover:bg-color-green-3  font-medium rounded-lg text-sm px-5 
+                   py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700
+                    dark:focus:ring-blue-800">Inscrire</button>
+                  </div>
+                </div>
+                
+              </div>
+            <!-- Modal footer -->
+           
+        </div>
+        
+
+      </div>
+    </div>
+  
+
+   
+  

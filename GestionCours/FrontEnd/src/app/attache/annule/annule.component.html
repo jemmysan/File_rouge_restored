@@ -1,0 +1,137 @@
+
+<div >
+    <main class="bg-color-rd-600 rounded-lg  h-[88%] shadow-sm-light shadow-color-orange-1"> 
+  
+        <div>
+          <div class="shadow-sm-light shadow-color-orange-1 md:py-4 px-4 md:px-5 xl:px-8 rounded-t-lg">
+            <div class="sm:flex items-center justify-between ">
+              <div class="flex items-center justify-between  w-[30%]">
+                <a class="rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800"
+                  href=" javascript:void(0)">
+                  <div class="py-2 px-8 bg-indigo-100 text-indigo-700 rounded-full">
+                    <p>Tout</p>
+                  </div>
+                </a>
+  
+                
+                
+              </div>
+              
+            </div>
+          </div>
+          <main class=" w-[100%] h-full flex relative overflow-y-hidden">
+  
+            
+          
+            <!-- Container -->
+        <div class="  h-full w-full m-4 flex flex-wrap items-start justify-start rounded-tl grid-flow-col auto-cols-max gap-4 overflow-y-scroll">
+              <!-- Container -->
+              <h2>Liste des demandes</h2>
+                <div *ngFor="let demande of demandes?.data " class="m-1 mx-2 flex justify-between w-full bg-white shadow-md
+                 shadow-color-green-3 p-2  rounded-xl">
+                    <div>
+                      {{demande.session.cours_id.prof_module_id.prof.prenom}}
+                        {{demande.session.cours_id.prof_module_id.prof.nom}}
+                    </div> 
+                    <div class="flex">
+                      <span class="py-1 px-2">
+                      <svg class="w-4 h-4  text-color-orange-1 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="m9.978 13.233 9.392-6.668a1.945 1.945 0 0 0-.186-.177L11.2.65A2 2 0 0 0 8.815.638L.8 6.4a1.928 1.928 0 0 0-.207.2l9.385 6.633Z"/>
+                        <path d="M11.181 14.864a2.007 2.007 0 0 1-2.382-.014L0 8.627V18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8.573l-8.819 6.29Z"/>
+                      </svg>
+                    </span>
+                      <span (click)="consulte()" class="px-2 text-color-orange-1 underline">Consulter</span>
+                    </div>
+                </div>
+                 
+           
+            </div>
+          </main>
+        </div>
+    </main>
+  </div>
+
+
+<!---------------- modal Information ----------------->
+
+<div *ngIf="showMotif" class=" fixed inset-0 flex items-center justify-center z-50" 
+ tabindex="-6" aria-hidden="true" class="fixed top-0 left-0 right-0 
+ z-50  w-full  overflow-x-hidden overflow-y-auto md:inset-0 
+  h-full">
+ <div class=" bg-black bg-opacity-40 w-full h-full">
+  <div class="relative w-full max-w-2xl mx-auto rounded-lg shadow dark:bg-gray-700 top-[26%] ">
+    <!-- Modal content -->
+    <div class="h-auto w-full relative bg-color-white ring-1 ring-color-green-3 rounded-lg shadow dark:bg-gray-700">
+      <!-- Modal header -->
+      <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+            <h3 class="text-xl font-semibold text-color-orange-1 dark:text-white">
+          Demande d'annulation
+            </h3>
+            <button (click)="closeModal()"  type="button" class="text-color-orange-1 bg-transparent hover:bg-red-600
+             hover:text-color-white rounded-lg text-sm w-8 h-8 ml-auto inline-flex 
+             justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              data-modal-hide="staticModal">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+              </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+      </div>  
+
+      <div class="flex w-full justify-between">
+        <div *ngFor="let demande of demandes?.data" class="w-auto h-auto size ">
+              <h3 class="p-2 m-2  text-xl font-semibold text-color-orange-1 dark:text-white">
+                Information session
+                  </h3>
+                <div class="p-2 m-2">
+                  <span class="font-bold">Module : </span> <span>{{demande.session.cours_id.prof_module_id.module.libelle}}</span>
+              </div>
+
+              <div class="p-2 m-2">
+                  <span class="font-bold">Date : </span> <span>{{demande.session.date}}</span>
+              </div>
+
+              <div class="p-2 m-2">
+                  <span class="font-bold">Heure de début : </span> <span>{{demande.session.heure_debut}}</span>
+              </div>
+
+              <div class="p-2 m-2">
+                  <span class="font-bold">Heure de fin : </span> <span>{{demande.session.heure_fin}}</span>
+              </div>
+
+              <div class="p-2 m-2">
+                  <span class="font-bold">Nature : </span> <span>{{demande.session.type_session}}</span>
+              </div>
+
+              <div class="p-2 m-2">
+                  <span class="font-bold">Salle : </span> <span>{{demande.session.salle.nom_salle}}</span>
+              </div>
+        </div>
+
+        <div *ngFor="let demande of demandes?.data" class="w-auto h-auto size ">
+          <h3 class="p-2 m-2  text-xl font-semibold text-color-orange-1 dark:text-white">
+           Motif
+              </h3>
+
+              <div class="p-2 m-2">
+                <span class="font-bold"></span> <span>{{demande.motif}}</span>
+            </div>
+           
+        </div>
+      </div>
+
+      <div class="w-auto flex justify-end">
+        <button  (click)="traiterDemande(0)" class="rounded-lg p-1 m-2 bg-red-700 text-color-gray-200">Refuser</button>
+        <button (click)="traiterDemande(1)" class="rounded-lg p-1 m-2 bg-color-green-3 text-color-gray-200">Accepter</button>
+      </div>
+      
+
+    </div>
+    
+
+  </div>
+</div>
+</div>
+
+  
+  

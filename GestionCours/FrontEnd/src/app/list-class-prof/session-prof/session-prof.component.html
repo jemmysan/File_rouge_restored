@@ -1,0 +1,171 @@
+<main class="rounded-lg h-full shadow-sm-light shadow-color-orange-1"> 
+      <div class="shadow-sm-light shadow-color-orange-1 md:py-4 px-4 md:px-5 xl:px-8 rounded-t-lg">
+        
+
+        <div class="sm:flex items-center justify-between ">
+         <!----------Bouton Retour-->
+         <div class="p-2 rounded-lg w-auto h-auto shadow-sm-light shadow-color-orange-1">
+          <button (click)="emitterCoursP.emit(true)">
+            <span class="underline flex justify-between w-20 text-color-orange-1">
+              <svg class="w-6 h-6 text-color-orange-1 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+              </svg>Retour
+            </span>
+        </button>
+        </div>
+           
+
+            
+
+            <div>
+                Module : <span>{{cours.prof_module_id.module.libelle}}</span>
+                    <span></span>
+            </div>
+            
+            <div>
+                Classe : <span>{{cours.classe_id.libelle}}</span>
+                    <span></span>
+            </div>
+            
+            
+        </div>
+      </div>
+  
+    <div class="overflow-y-auto h-[80%]" id="calendar-container">   
+        <!-- <app-test></app-test> -->
+        <div id="cal-buttons" class="flex justify-between">
+            <div id="cal-date-nav-buttons">
+                <button mwlCalendarPreviousView [(viewDate)]="viewDate" [view]="view" class="bg-color-orange-1 m-3 p-1 ring-1 text-color-white rounded-lg" id="precedent">Precedent</button>
+                <button mwlCalendarToday [(viewDate)]="viewDate" class="bg-color-orange-1 m-3 p-1 ring-1 text-color-white rounded-lg" id="aujourdhui">Aujourd'hui</button>
+                <button mwlCalendarNextView [(viewDate)]="viewDate" [view]="view" class="bg-color-orange-1 m-3 p-1 ring-1 text-color-white rounded-lg" id="prochain">Prochain</button>
+            </div>
+
+            <div class="p-2 text-lg" id="cal-view-nav-field">{{viewDate | calendarDate:(view + 'ViewTitle') : 'en' }}  </div>
+            
+            <div id="cal-view-nav-field">
+                <button (click)="setView(CalendarView.Month)"  class="bg-color-orange-1 m-3 p-1 ring-1 text-color-white rounded-lg" id="month">mois</button>
+                <button (click)="setView(CalendarView.Week)" class="bg-color-orange-1 m-3 p-1 ring-1 text-color-white rounded-lg" id="week">semaine</button>
+                <button (click)="setView(CalendarView.Day)" class="bg-color-orange-1 m-3 p-1 ring-1 text-color-white rounded-lg" id="day">jour</button>
+            </div>
+
+        </div>
+        <span [ngSwitch]="view">
+            <mwl-calendar-month-view
+             *ngSwitchCase="CalendarView.Month"
+              [events]="events" [viewDate]="viewDate"
+              [activeDayIsOpen]="activeDayIsOpen"
+              (dayClicked)="dayClicked($event.day)">
+            </mwl-calendar-month-view>
+
+            <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" 
+             [events]="events" [viewDate]="viewDate"
+             (eventClicked)="eventClick($event)">
+            </mwl-calendar-week-view>
+            <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [events]="events"  [viewDate]="viewDate"></mwl-calendar-day-view>
+        </span>
+       
+
+    </div>
+
+</main>
+
+
+
+<!---------------- modal Information ----------------->
+
+<div *ngIf="modal" class=" fixed inset-0 flex items-center justify-center z-50" 
+ tabindex="-6" aria-hidden="true" class="fixed top-0 left-0 right-0 
+ z-50  w-full  overflow-x-hidden overflow-y-auto md:inset-0 
+  h-full">
+ <div class=" bg-black bg-opacity-40 w-full h-full">
+  <div class="relative w-full max-w-2xl mx-auto rounded-lg shadow dark:bg-gray-700 top-[26%] ">
+    <!-- Modal content -->
+    <div class="h-auto w-[60%] relative bg-color-white ring-1 ring-color-green-3 rounded-lg shadow dark:bg-gray-700">
+      <!-- Modal header -->
+      <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+        <h3 class="text-xl font-semibold text-color-orange-1 dark:text-white">
+          Informations session
+            </h3>
+            <button (click)="closeModal()"  type="button" class="text-color-orange-1 bg-transparent hover:bg-red-600
+             hover:text-color-white rounded-lg text-sm w-8 h-8 ml-auto inline-flex 
+             justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              data-modal-hide="staticModal">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+              </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+      </div>  
+
+      <div class="w-auto h-auto size">
+            <div class="p-2 m-2">
+                <span class="font-bold">Date : </span> <span>{{session.date}}</span>
+            </div>
+
+            <div class="p-2 m-2">
+                <span class="font-bold">Heure de début : </span> <span>{{session.heure_debut}}</span>
+            </div>
+
+            <div class="p-2 m-2">
+                <span class="font-bold">Heure de fin : </span> <span>{{session.heure_fin}}</span>
+            </div>
+
+            <div class="p-2 m-2">
+                <span class="font-bold">Nature : </span> <span>{{session.type_session}}</span>
+            </div>
+
+            <div class="p-2 m-2">
+                <span class="font-bold">Salle : </span> <span>{{findSalle(session.salle_id)}}</span>
+            </div>
+      </div>
+      <div class="w-auto flex justify-end">
+            <button (click)="openMotif()" class="rounded-lg p-1 m-2 bg-color-orange-1 text-color-gray-200">Demande annulation</button>
+      </div>
+      
+
+    </div>
+    
+
+  </div>
+</div>
+</div>
+
+
+
+<!---------------- modal Motif----------------->
+
+<div *ngIf="motif" class=" fixed inset-0 flex items-center justify-center z-50" 
+ tabindex="-6" aria-hidden="true" class="fixed top-0 left-0 right-0 
+ z-50  w-full  overflow-x-hidden overflow-y-auto md:inset-0 
+  h-full">
+ <div class=" bg-black bg-opacity-40 w-full h-full">
+  <div class="relative w-full max-w-2xl mx-auto rounded-lg shadow dark:bg-gray-700 top-[18%] left-[8%] ">
+    <!-- Modal content -->
+    <div class="h-auto w-[60%] relative bg-color-white ring-1 ring-color-green-3 rounded-lg shadow dark:bg-gray-700">
+      <!-- Modal header -->
+      <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+        <h3 class="text-xl font-semibold text-color-orange-1 dark:text-white">
+          Motif
+            </h3>
+            <button (click)="closeMotif()"  type="button" class="text-color-orange-1 bg-transparent hover:bg-red-600
+             hover:text-color-white rounded-lg text-sm w-8 h-8 ml-auto inline-flex 
+             justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              data-modal-hide="staticModal">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+              </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+      </div> 
+      <div class="p-2">
+            <form [formGroup]="formMotif">
+                <textarea formControlName="motif" class="w-full h-32"></textarea>
+            </form>
+      </div>
+      <div class="w-auto flex justify-end">
+            <button (click)="annuleSession()" class="rounded-lg p-1 m-2 bg-color-orange-1 text-color-gray-200">envoyer</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
